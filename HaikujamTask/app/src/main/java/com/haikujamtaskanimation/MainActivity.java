@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button button;
     private MorphingButton btnDone;
     private RelativeLayout mLLLayout;
-    private boolean isMorphed = false;
+    ImageView mImageOne;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button = findViewById(R.id.button_next);
         btnDone = findViewById(R.id.btnDone);
         mLLLayout = findViewById(R.id.ll_linearlayout);
+        mImageOne = findViewById(R.id.img_one);
         button.setOnClickListener(this);
 
         MorphingButton.Params square = MorphingButton.Params.create()
@@ -52,11 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnDone.morph(square);
 
 //To animate from circle to rect-round to this demo purpose
-        if (!isMorphed) {
+
             btnDone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    isMorphed = true;
                     MorphingButton.Params circle = MorphingButton.Params.create()//To animate in circle from rect-round
                             .duration(500)
                             .cornerRadius((int) getResources().getDimension(R.dimen._300sdp))
@@ -77,11 +78,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             });
-        }
-        else {
-            mLLLayout.setVisibility(View.GONE);
-            button.setVisibility(View.GONE);
-        }
 
     }
 
@@ -92,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         count = count + 1;
         switch (count) {
             case 1:
-                YoYo.with(Techniques.TakingOff)
+                YoYo.with(Techniques.FadeOut)
                         .duration(700)
                         .playOn(findViewById(R.id.img_one));
                 YoYo.with(Techniques.Wobble)
@@ -102,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case 2:
-                YoYo.with(Techniques.TakingOff)
+                YoYo.with(Techniques.FadeOut)
                         .duration(700)
                         .playOn(findViewById(R.id.img_two));
                 YoYo.with(Techniques.Wobble)
@@ -111,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 findViewById(R.id.img_two_inner).setBackgroundColor(getResources().getColor(R.color.colorGreen));
                 break;
             case 3:
-                YoYo.with(Techniques.TakingOff)
+                YoYo.with(Techniques.FadeOut)
                         .duration(700)
 
                         .playOn(findViewById(R.id.img_three));
@@ -123,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 4:
                 mLLLayout.setVisibility(View.GONE);
+                button.setVisibility(View.GONE);
                 MorphingButton.Params square = MorphingButton.Params.create()
                         .duration(500)
                         .cornerRadius((int) getResources().getDimension(R.dimen.activity_horizontal_margin))
